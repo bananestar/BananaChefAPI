@@ -20,7 +20,16 @@ namespace BananaChefDAL.Models.Users.Mapper
 
         public static UserViewModel ToUserViewModel(this User user)
         {
-            return new UserViewModel { UserID = user.UserID, Username = user.Username, Email = user.Email, IsAdmin = user.IsAdmin, ProfileImageUrl = user.ProfileImageUrl, CreatedAt = user.CreatedAt, UpdatedAt = user.UpdatedAt };
+            return new UserViewModel
+            {
+                UserID = user.UserID,
+                Username = user.Username,
+                Email = user.Email,
+                IsAdmin = user.IsAdmin,
+                ProfileImageUrl = user.ProfileImageUrl,
+                CreatedAt = user.CreatedAt,
+                UpdatedAt = user.UpdatedAt
+            };
         }
     }
 }
