@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bananaChefAPI", "bananaChefAPI\bananaChefAPI.csproj", "{CCDFD7B9-C675-4C5B-8346-DE0DFFEC35F8}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BananaChefDB", "BananaChefDB\BananaChefDB.sqlproj", "{E95DFEC3-2C17-4C0C-B89C-4A7C90BD9CB9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCDFD7B9-C675-4C5B-8346-DE0DFFEC35F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCDFD7B9-C675-4C5B-8346-DE0DFFEC35F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCDFD7B9-C675-4C5B-8346-DE0DFFEC35F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCDFD7B9-C675-4C5B-8346-DE0DFFEC35F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E95DFEC3-2C17-4C0C-B89C-4A7C90BD9CB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E95DFEC3-2C17-4C0C-B89C-4A7C90BD9CB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E95DFEC3-2C17-4C0C-B89C-4A7C90BD9CB9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E95DFEC3-2C17-4C0C-B89C-4A7C90BD9CB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E95DFEC3-2C17-4C0C-B89C-4A7C90BD9CB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E95DFEC3-2C17-4C0C-B89C-4A7C90BD9CB9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4DEF679B-4C6C-4998-B039-CE3016500249}
+	EndGlobalSection
+EndGlobal
