@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BananaChefAPI", "bananaChefAPI\BananaChefAPI.csproj", "{CCDFD7B9-C675-4C5B-8346-DE0DFFEC35F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BananaChefAPI", "bananaChefAPI\BananaChefAPI.csproj", "{CCDFD7B9-C675-4C5B-8346-DE0DFFEC35F8}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BananaChefDB", "BananaChefDB\BananaChefDB.sqlproj", "{E95DFEC3-2C17-4C0C-B89C-4A7C90BD9CB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BananaChefDAL", "BananaChefDAL\BananaChefDAL.csproj", "{08B659AE-4084-4060-BD5B-F7A2BDB70F98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BananaChefDAL", "BananaChefDAL\BananaChefDAL.csproj", "{08B659AE-4084-4060-BD5B-F7A2BDB70F98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BananaChefBLL", "BananaChefBLL\BananaChefBLL.csproj", "{AAA7596F-0C06-4769-BC5A-1406D5BE224B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BananaChefBLL", "BananaChefBLL\BananaChefBLL.csproj", "{8E2A4E8B-8000-4431-A276-89E70CDC014E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,10 @@ Global
 		{08B659AE-4084-4060-BD5B-F7A2BDB70F98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08B659AE-4084-4060-BD5B-F7A2BDB70F98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08B659AE-4084-4060-BD5B-F7A2BDB70F98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAA7596F-0C06-4769-BC5A-1406D5BE224B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAA7596F-0C06-4769-BC5A-1406D5BE224B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAA7596F-0C06-4769-BC5A-1406D5BE224B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAA7596F-0C06-4769-BC5A-1406D5BE224B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E2A4E8B-8000-4431-A276-89E70CDC014E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E2A4E8B-8000-4431-A276-89E70CDC014E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E2A4E8B-8000-4431-A276-89E70CDC014E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E2A4E8B-8000-4431-A276-89E70CDC014E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

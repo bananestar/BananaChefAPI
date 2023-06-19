@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BananaChefDAL.Models.Users
 {
+    [Table("User")]
     public class User
     {
 

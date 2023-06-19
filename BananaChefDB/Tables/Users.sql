@@ -9,5 +9,4 @@
     ProfileImageURL VARCHAR(255) DEFAULT 'https://firebasestorage.googleapis.com/v0/b/quizermania-f7be1.appspot.com/o/default.png?alt=media&token=f8b1b4b8-121d-4ffa-9e9c-bfbbf190f163',
     CreatedAt DATETIME2 DEFAULT GETDATE(),
     UpdatedAt DATETIME2 DEFAULT GETDATE()
-
 )
