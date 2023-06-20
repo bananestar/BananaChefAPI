@@ -17,7 +17,26 @@ namespace BananaChefDAL.Repositories
 
         public async Task<User> LoginUser(UserLoginDTO loginDTO)
         {
-            return await _dataContext.Users.FromSqlRaw("EXEC LoginUser {0}, {1}", loginDTO.EmailOrUsername, loginDTO.Password).FirstOrDefaultAsync();
+            try
+            {
+                var loginResult = await _dataContext.LoginUser(loginDTO.EmailOrUsername, loginDTO.Password);
+
+                if (loginResult.Message == "Login successful")
+                {
+                    var loggedInUser = await _dataContext.Users.FirstOrDefaultAsync(
+                        u => u.UserID == loginResult.UserID.Value);
+
+                    return loggedInUser;
+                }
+            }
+            catch (Exception e)
+            {
+                // Gérer l'exception ici
+                await Console.Out.WriteLineAsync("*******--Erreur connection--*******");
+                await Console.Out.WriteLineAsync(e.ToString());
+            }
+
+            return null;
         }
 
         public async Task<bool> RegisterUser(UserRegisterDTO registerDTO)
@@ -29,7 +48,7 @@ namespace BananaChefDAL.Repositories
             }
             catch (Exception e)
             {
-                await Console.Out.WriteLineAsync(e.Message);
+                await Console.Out.WriteLineAsync(e.ToString());
                 return false;
             }
 

@@ -17,7 +17,7 @@ namespace BananaChefDAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.5")
+                .HasAnnotation("ProductVersion", "7.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -48,6 +48,10 @@ namespace BananaChefDAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -65,19 +69,6 @@ namespace BananaChefDAL.Migrations
                         .IsUnique();
 
                     b.ToTable("User");
-
-                    b.HasData(
-                        new
-                        {
-                            UserID = new Guid("3f18cc8b-0d24-40e8-94b2-24557f5452b8"),
-                            CreatedAt = new DateTime(2023, 6, 19, 17, 38, 12, 571, DateTimeKind.Utc).AddTicks(3356),
-                            Email = "bananestar@bananacorp.com",
-                            IsAdmin = true,
-                            Password = "Test1234=",
-                            ProfileImageUrl = "https://firebasestorage.googleapis.com/v0/b/quizermania-f7be1.appspot.com/o/bv2.jpg?alt=media&token=5c0fc6fc-1cc3-4b30-9c56-05fdc3d15a45",
-                            UpdatedAt = new DateTime(2023, 6, 19, 17, 38, 12, 571, DateTimeKind.Utc).AddTicks(3357),
-                            Username = "bananestar"
-                        });
                 });
 #pragma warning restore 612, 618
         }

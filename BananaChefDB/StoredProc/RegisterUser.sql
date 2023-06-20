@@ -9,7 +9,7 @@ BEGIN
 	* UUID + HASH ( email + username ) + UUID
 	*/
 	DECLARE @salt VARCHAR(100)
-	SET @salt = CONCAT(NEWID(), HASHBYTES('SHA2_512',CONCAT(@email, @username)), NEWID())
+	SET @salt = CONCAT(NEWID(), NEWID(), NEWID())
 
 	/*
 	* HashKey
@@ -40,8 +40,8 @@ BEGIN
 	IF NOT EXISTS (SELECT 1 FROM [dbo].[User] WHERE Username = @username)
 		AND NOT EXISTS (SELECT 1 FROM [dbo].[User] WHERE Email = @email)
 		BEGIN
-			INSERT INTO [dbo].[User] (UserID, Username, Email, Pwd, Salt)
-			VALUES (@userId,@username,@email,@pwdHash,@salt)
+			INSERT INTO [dbo].[User] (UserID, Username, Email, Password, Salt, CreatedAt, UpdatedAt)
+			VALUES (@userId,@username,@email,@pwdHash,@salt, GETDATE(), GETDATE())
 		END
 	ELSE
 		BEGIN

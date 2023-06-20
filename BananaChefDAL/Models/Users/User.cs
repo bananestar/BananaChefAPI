@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BananaChefDAL.Models.Users
 {
@@ -38,6 +40,10 @@ namespace BananaChefDAL.Models.Users
         [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).{8,30}$", ErrorMessage = "Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be between 8 and 30 characters.")]
         public string Password { get; set; }
 
+        [NotNull]
+        public string Salt { get; set; }
+
+        [DefaultValue(false)]
         public bool IsAdmin { get; set; }
 
         [Url(ErrorMessage = "Profile image URL is not valid.")]

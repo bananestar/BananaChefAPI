@@ -2,8 +2,6 @@
 using BananaChefDAL.Interfaces;
 using BananaChefDAL.Models.Users;
 using BananaChefDAL.Models.Users.DTO;
-using BananaChefDAL.Models.Users.Mapper;
-using BananaChefDAL.Models.Users.ViewModels;
 
 namespace BananaChefBLL.Services
 {
@@ -18,10 +16,13 @@ namespace BananaChefBLL.Services
             _jwtService = jwtService;
         }
 
-        public async Task<UserViewModel> Login(UserLoginDTO loginDTO)
+        public async Task<string?> Login(UserLoginDTO loginDTO)
         {
-            User user = await _userRepository.LoginUser(loginDTO);
-            return user.ToUserViewModel();
+            User? user = await _userRepository.LoginUser(loginDTO);
+
+            if (user is not null && user.Password == loginDTO.Password)
+                return _jwtService.GetJwt(user);
+            return null;
         }
 
         public async Task<bool> Register(UserRegisterDTO registerDTO)

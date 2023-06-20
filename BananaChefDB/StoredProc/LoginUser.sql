@@ -1,9 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[LoginUser]
 	@identifier NVARCHAR(255),
-	@password NVARCHAR(100)
+	@password NVARCHAR(100),
+	@UserID UNIQUEIDENTIFIER OUTPUT,
+	@message NVARCHAR(100) OUTPUT
 AS
 BEGIN
-	DECLARE @userId UNIQUEIDENTIFIER
 	DECLARE @storedPassword VARBINARY(64)
 	DECLARE @storedSalt VARCHAR(100)
 
@@ -13,14 +14,14 @@ BEGIN
 	IF CHARINDEX('@', @identifier) > 0
 	-- si email
 		BEGIN
-			SELECT @userId = UserID, @storedPassword = Pwd, @storedSalt = Salt
+			SELECT @UserID = UserID, @storedPassword = Password, @storedSalt = Salt
 			FROM [dbo].[User]
 			WHERE Email = @identifier
 		END
 	ELSE
 	-- si pseudo
 		BEGIN
-			SELECT @userId = UserID, @storedPassword = Pwd, @storedSalt = Salt
+			SELECT @UserID = UserID, @storedPassword = Password, @storedSalt = Salt
 			FROM [dbo].[User]
 			WHERE Username = @identifier
 		END
@@ -28,13 +29,13 @@ BEGIN
 	/*
 	* Control userId
 	*/
-	IF @userId IS NOT NULL
+	IF @UserID IS NOT NULL
 		BEGIN
 			/*
 			* HashKey
 			* Recup secret key
 			*/
-			DECLARE @hashKey VARCHAR(100)
+			DECLARE @hashKey VARCHAR(320)
 			SET @hashKey = dbo.GetSecret()
 
 			/*
@@ -42,22 +43,25 @@ BEGIN
 			* hashage du inputPassword en SHA2_512 avec le @storedSalt, @hashKey, @password, @storedSalt
 			*/
 			DECLARE @inputPassword VARBINARY(64)
-			SET @inputPassword = HASHBYTES('SHA2_512', CONCAT(@storedSalt,@hashKey,@password, @storedSalt))
+			SET @inputPassword = HASHBYTES('SHA2_512', CONCAT(@storedSalt, @hashKey, @password, @storedSalt))
 
 			/*
 			* Control pwd
 			*/
 			IF @inputPassword = @storedPassword
 				BEGIN
-					SELECT 'Login successful' AS Message, @userId AS UserID
+					SET @message = 'Login successful'
+					SET @UserID = CONVERT(NVARCHAR(36), @UserID);
 				END
 			ELSE
 				BEGIN
-					SELECT 'Incorrect Username/Email or password' AS Message, NULL AS UserID
+					SET @message = 'Incorrect Username/Email or password 1'
+					SET @userId = NULL
 				END
 		END
 	ELSE
 		BEGIN
-			SELECT 'Incorrect Username/Email or password' AS Message, NULL AS UserID
+			SET @message = 'Incorrect Username/Email or password 2'
+			SET @userId = NULL
 		END
 END

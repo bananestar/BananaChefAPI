@@ -19,6 +19,7 @@ namespace BananaChefDAL.Migrations
                     Username = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Salt = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsAdmin = table.Column<bool>(type: "bit", nullable: false),
                     ProfileImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -28,11 +29,6 @@ namespace BananaChefDAL.Migrations
                 {
                     table.PrimaryKey("PK_User", x => x.UserID);
                 });
-
-            migrationBuilder.InsertData(
-                table: "User",
-                columns: new[] { "UserID", "CreatedAt", "Email", "IsAdmin", "Password", "ProfileImageUrl", "UpdatedAt", "Username" },
-                values: new object[] { new Guid("3f18cc8b-0d24-40e8-94b2-24557f5452b8"), new DateTime(2023, 6, 19, 17, 38, 12, 571, DateTimeKind.Utc).AddTicks(3356), "bananestar@bananacorp.com", true, "Test1234=", "https://firebasestorage.googleapis.com/v0/b/quizermania-f7be1.appspot.com/o/bv2.jpg?alt=media&token=5c0fc6fc-1cc3-4b30-9c56-05fdc3d15a45", new DateTime(2023, 6, 19, 17, 38, 12, 571, DateTimeKind.Utc).AddTicks(3357), "bananestar" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_Email",

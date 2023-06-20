@@ -1,9 +1,9 @@
-﻿using BananaChefDAL.Models.Users.ViewModels;
+﻿using BananaChefDAL.Models.Users;
 
 namespace BananaChefBLL.Interfaces
 {
     public interface IJwtService
     {
-        public string GetJwt(UserViewModel user);
+        public string GetJwt(User user);
     }
 }

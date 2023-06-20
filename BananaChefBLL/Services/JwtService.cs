@@ -1,5 +1,5 @@
 ﻿using BananaChefBLL.Interfaces;
-using BananaChefDAL.Models.Users.ViewModels;
+using BananaChefDAL.Models.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -11,13 +11,12 @@ namespace BananaChefBLL.Services
     public class JwtService : IJwtService
     {
         private readonly IConfiguration _configuration;
-
         public JwtService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public string GetJwt(UserViewModel user)
+        public string GetJwt(User user)
         {
             SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwt:key"]));
 
@@ -57,5 +56,7 @@ namespace BananaChefBLL.Services
 
             return tokenAvance;
         }
+
+
     }
 }
