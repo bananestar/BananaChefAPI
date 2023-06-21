@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Articles\**" />
+    <Compile Remove="Models\Categories\**" />
+    <Compile Remove="Models\Comments\**" />
+    <EmbeddedResource Remove="Models\Articles\**" />
+    <EmbeddedResource Remove="Models\Categories\**" />
+    <EmbeddedResource Remove="Models\Comments\**" />
+    <None Remove="Models\Articles\**" />
+    <None Remove="Models\Categories\**" />
+    <None Remove="Models\Comments\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.7" />
@@ -20,19 +32,27 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Models\Ingredients\" />
-    <Folder Include="Models\Categories\" />
-    <Folder Include="Models\Articles\" />
-    <Folder Include="Models\Comments\" />
-    <Folder Include="Models\Steps\" />
-    <Folder Include="Models\RecipesCategories\" />
-    <Folder Include="Models\RecipeIngredients\" />
+    <Folder Include="Models\Articles\DTO\" />
+    <Folder Include="Models\Articles\Mapper\" />
+    <Folder Include="Models\Articles\ViewModels\" />
+    <Folder Include="Models\Ingredients\DTO\" />
+    <Folder Include="Models\Ingredients\Mapper\" />
+    <Folder Include="Models\Ingredients\ViewModels\" />
+    <Folder Include="Models\RecipeIngredients\DTO\" />
+    <Folder Include="Models\RecipeIngredients\Mapper\" />
+    <Folder Include="Models\RecipeIngredients\ViewModels\" />
+    <Folder Include="Models\RecipesCategories\DTO\" />
+    <Folder Include="Models\RecipesCategories\Mapper\" />
+    <Folder Include="Models\RecipesCategories\ViewModels\" />
     <Folder Include="Models\Recipes\DTO\" />
     <Folder Include="Models\Recipes\Mapper\" />
     <Folder Include="Models\Recipes\ViewModels\" />
     <Folder Include="Models\SavedRecipes\DTO\" />
     <Folder Include="Models\SavedRecipes\Mapper\" />
     <Folder Include="Models\SavedRecipes\ViewModels\" />
+    <Folder Include="Models\Steps\DTO\" />
+    <Folder Include="Models\Steps\Mapper\" />
+    <Folder Include="Models\Steps\ViewModels\" />
   </ItemGroup>
 
 
