@@ -20,6 +20,19 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Models\Ingredients\" />
+    <Folder Include="Models\Categories\" />
+    <Folder Include="Models\Articles\" />
+    <Folder Include="Models\Comments\" />
+    <Folder Include="Models\Steps\" />
+    <Folder Include="Models\RecipesCategories\" />
+    <Folder Include="Models\RecipeIngredients\" />
+    <Folder Include="Models\Recipes\DTO\" />
+    <Folder Include="Models\Recipes\Mapper\" />
+    <Folder Include="Models\Recipes\ViewModels\" />
+    <Folder Include="Models\SavedRecipes\DTO\" />
+    <Folder Include="Models\SavedRecipes\Mapper\" />
+    <Folder Include="Models\SavedRecipes\ViewModels\" />
   </ItemGroup>
 
 

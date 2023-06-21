@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using BananaChefDAL.Models.SavedRecipes;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
@@ -8,7 +9,6 @@ namespace BananaChefDAL.Models.Users
     [Table("User")]
     public class User
     {
-
         public User() { }
 
         public User(string username, string email, string password, bool isAdmin = false, string? profileImageUrl = null, DateTime? createdAt = null, DateTime? updatedAt = null)
@@ -51,5 +51,7 @@ namespace BananaChefDAL.Models.Users
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        public ICollection<SavedRecipe> SavedRecipes { get; set; }
     }
 }
