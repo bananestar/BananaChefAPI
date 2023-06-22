@@ -64,6 +64,15 @@
     <Build Include="StoredProc\RegisterUser.sql" />
     <Build Include="GetSecret.sql" />
     <Build Include="StoredProc\LoginUser.sql" />
+    <Build Include="Tables\Recipes.sql" />
+    <Build Include="Tables\Ingredients.sql" />
+    <Build Include="Tables\RecipeIngredient.sql" />
+    <Build Include="Tables\Categories.sql" />
+    <Build Include="Tables\RecipeCategories.sql" />
+    <Build Include="Tables\SavedRecipes.sql" />
+    <Build Include="Tables\Steps.sql" />
+    <Build Include="Tables\Articles.sql" />
+    <Build Include="Tables\Comments.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BananaChefDB.refactorlog" />

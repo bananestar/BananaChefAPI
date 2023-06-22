@@ -12,6 +12,7 @@ namespace BananaChefDAL.Context
                             + "Database=BananaChefDB;"
                             + "Trusted_Connection=True;"
                             + "Trusted_Connection=True;";
+
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<SavedRecipe> SavedRecipes { get; set; }
