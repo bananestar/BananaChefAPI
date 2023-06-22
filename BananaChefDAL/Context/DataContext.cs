@@ -11,7 +11,7 @@ namespace BananaChefDAL.Context
         string connectionString = @"Server=DESKTOP-KF6RFV3;"
                             + "Database=BananaChefDB;"
                             + "Trusted_Connection=True;"
-                            + "TrustServerCertificate=True;";
+                            + "Trusted_Connection=True;";
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<SavedRecipe> SavedRecipes { get; set; }

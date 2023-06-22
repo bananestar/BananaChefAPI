@@ -1,5 +1,6 @@
 ﻿using BananaChefDAL.Models.Users;
 using BananaChefDAL.Models.Users.DTO;
+using BananaChefDAL.Models.Users.ViewModels;
 
 namespace BananaChefDAL.Interfaces
 {

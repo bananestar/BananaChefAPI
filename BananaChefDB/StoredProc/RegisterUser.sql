@@ -9,7 +9,7 @@ BEGIN
 	* UUID + HASH ( email + username ) + UUID
 	*/
 	DECLARE @salt VARCHAR(100)
-	SET @salt = CONCAT(NEWID(), NEWID(), NEWID())
+	SET @salt = CONVERT(VARCHAR(100),CONCAT(NEWID(), NEWID(), NEWID()))
 
 	/*
 	* HashKey

@@ -37,11 +37,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 //JWT
 builder.Services.AddScoped<IJwtService, JwtService>();
 //DAL
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>( sp =>
+    new UserRepository(
+        new System.Data.SqlClient.SqlConnection(
+            builder.Configuration.GetConnectionString("default")
+            )
+        )
+);
 //BLL
 builder.Services.AddScoped<IUserService, UserService>();
 //DBSet
 builder.Services.AddDbContext<DataContext>();
+
+//builder.Services.AddScoped<IGameRepository, GameService>(sp =>
+//    new GameService(
+//        new System.Data.SqlClient.SqlConnection(
+//            builder.Configuration.GetConnectionString("default"))));
+
+
 
 var app = builder.Build();
 

@@ -1,10 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[LoginUser]
 	@identifier NVARCHAR(255),
 	@password NVARCHAR(100),
-	@UserID UNIQUEIDENTIFIER OUTPUT,
-	@message NVARCHAR(100) OUTPUT
+	@message NVARCHAR(100) OUTPUT,
+	@UserResult NVARCHAR(MAX) OUTPUT
 AS
 BEGIN
+	DECLARE @UserID UNIQUEIDENTIFIER
 	DECLARE @storedPassword VARBINARY(64)
 	DECLARE @storedSalt VARCHAR(100)
 
@@ -51,17 +52,22 @@ BEGIN
 			IF @inputPassword = @storedPassword
 				BEGIN
 					SET @message = 'Login successful'
-					SET @UserID = CONVERT(NVARCHAR(36), @UserID);
+
+					-- Sélectionner toutes les colonnes de l'utilisateur correspondant
+					SET @UserResult = (
+						SELECT *, CONVERT(NVARCHAR(MAX), Password) AS Password
+						FROM [User]
+						WHERE UserID = @UserID
+						FOR JSON AUTO
+					)
 				END
 			ELSE
 				BEGIN
-					SET @message = 'Incorrect Username/Email or password 1'
-					SET @userId = NULL
+					SET @message = 'Incorrect Username/Email or password'
 				END
 		END
 	ELSE
 		BEGIN
-			SET @message = 'Incorrect Username/Email or password 2'
-			SET @userId = NULL
+			SET @message = 'Incorrect Username/Email or password'
 		END
 END

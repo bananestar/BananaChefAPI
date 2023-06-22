@@ -2,6 +2,8 @@
 using BananaChefDAL.Interfaces;
 using BananaChefDAL.Models.Users;
 using BananaChefDAL.Models.Users.DTO;
+using BananaChefDAL.Models.Users.Mapper;
+using BananaChefDAL.Models.Users.ViewModels;
 
 namespace BananaChefBLL.Services
 {
@@ -18,10 +20,11 @@ namespace BananaChefBLL.Services
 
         public async Task<string?> Login(UserLoginDTO loginDTO)
         {
-            User? user = await _userRepository.LoginUser(loginDTO);
+            User user = await _userRepository.LoginUser(loginDTO);
 
-            if (user is not null && user.Password == loginDTO.Password)
+            if (user is not null)
                 return _jwtService.GetJwt(user);
+
             return null;
         }
 
