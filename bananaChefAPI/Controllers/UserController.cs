@@ -23,6 +23,7 @@ namespace BananaChefAPI.Controllers
             public bool? rep { get; set; }
         }
 
+        // Action pour la connexion d'un utilisateur
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserLoginDTO loginDTO)
         {
@@ -34,6 +35,7 @@ namespace BananaChefAPI.Controllers
             return token is not null ? Ok(token) : BadRequest();
         }
 
+        // Action pour l'enregistrement d'un utilisateur
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegisterDTO registerDTO)
         {
@@ -48,6 +50,8 @@ namespace BananaChefAPI.Controllers
             return Ok(result.message);
         }
 
+        // Action pour changer l'e-mail d'un utilisateur (requiert une autorisation)
+        [HttpPost("ChangeEmailUser")]
         [HttpPost("ChangeEmailUser")]
         [Authorize]
         public async Task<IActionResult> ChangeEmailUser(ChangeEmailDTO changeEmailDTO)
@@ -63,7 +67,7 @@ namespace BananaChefAPI.Controllers
             return Ok(result.message);
         }
 
-
+        // Action pour changer le mot de passe d'un utilisateur (requiert une autorisation)
         [HttpPost("ChangePasswordUser")]
         [Authorize]
         public async Task<IActionResult> ChangePasswordUser(ChangePasswordDTO changePasswordDTO)
@@ -79,6 +83,7 @@ namespace BananaChefAPI.Controllers
             return Ok(result.message);
         }
 
+        // Action pour changer le statut administrateur d'un utilisateur (requiert une autorisation en tant qu'Admin)
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ChangeStatusAdminUser(ChangeAdminStatusDTO adminStatusDTO)
