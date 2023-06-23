@@ -4,6 +4,9 @@ namespace BananaChefDAL.Models.Users.DTO
 {
     public class ChangeEmailDTO
     {
+        [Required(ErrorMessage = "Identifier is required (UserID)")]
+        public Guid UserID { get; set; }
+
         [Required(ErrorMessage = "New email is required.")]
         [EmailAddress(ErrorMessage = "New email is not valid.")]
         public string NewEmail { get; set; }

@@ -83,6 +83,7 @@
     <Build Include="StoredProc\ChangeStatusAdminUser.sql" />
     <Build Include="StoredProc\ChangeEmailUser.sql" />
     <Build Include="StoredProc\ModifyComment.sql" />
+    <Build Include="StoredProc\CheckPasswordUser.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BananaChefDB.refactorlog" />

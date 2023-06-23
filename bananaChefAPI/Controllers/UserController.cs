@@ -1,5 +1,6 @@
 ﻿using BananaChefBLL.Interfaces;
 using BananaChefDAL.Models.Users.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BananaChefAPI.Controllers
@@ -13,6 +14,13 @@ namespace BananaChefAPI.Controllers
         public UserController(IUserService userService)
         {
             _userService = userService;
+        }
+
+        // Classe Response pour stocker les résultats et les messages
+        public class Response
+        {
+            public string message { get; set; }
+            public bool? rep { get; set; }
         }
 
         [HttpPost("login")]
@@ -32,12 +40,46 @@ namespace BananaChefAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _userService.Register(registerDTO);
+            Response result = (Response)await _userService.Register(registerDTO);
 
-            if (!result)
+            if (result.rep == false || result.rep == null)
                 return BadRequest("Failed to register user.");
 
-            return Ok("User registered successfully.");
+            return Ok(result.message);
         }
+
+        [HttpPost("ChangeEmailUser")]
+        [Authorize]
+        public async Task<IActionResult> ChangeEmailUser(ChangeEmailDTO changeEmailDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            Response result = (Response)await _userService.ChangeEmail(changeEmailDTO);
+
+            if (result.rep == false || result.rep == null)
+                return BadRequest(result.message);
+
+            return Ok(result.message);
+        }
+
+
+        [HttpPost("ChangePasswordUser")]
+        [Authorize]
+        public async Task<IActionResult> ChangePasswordUser(ChangePasswordDTO changePasswordDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            Response result = (Response)await _userService.ChangePassword(changePasswordDTO);
+
+            if (result.rep == false || result.rep == null)
+                return BadRequest(result.message);
+
+            return Ok(result.message);
+        }
+
+
+
     }
 }

@@ -4,6 +4,9 @@ namespace BananaChefDAL.Models.Users.DTO
 {
     public class ChangePasswordDTO
     {
+        [Required(ErrorMessage = "Identifier is required (UserID)")]
+        public Guid UserID { get; set; }
+
         [Required(ErrorMessage = "Current password is required.")]
         public string CurrentPassword { get; set; }
 

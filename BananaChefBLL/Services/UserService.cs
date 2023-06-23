@@ -2,8 +2,6 @@
 using BananaChefDAL.Interfaces;
 using BananaChefDAL.Models.Users;
 using BananaChefDAL.Models.Users.DTO;
-using BananaChefDAL.Models.Users.Mapper;
-using BananaChefDAL.Models.Users.ViewModels;
 
 namespace BananaChefBLL.Services
 {
@@ -18,6 +16,18 @@ namespace BananaChefBLL.Services
             _jwtService = jwtService;
         }
 
+        // Méthode pour changer l'email de l'utilisateur
+        public async Task<object> ChangeEmail(ChangeEmailDTO changeEmailDTO)
+        {
+            return await _userRepository.ChangeEmailUser(changeEmailDTO);
+        }
+
+        // Méthode pour changer le mots de passe de l'utilisateur
+        public async Task<object> ChangePassword(ChangePasswordDTO changePasswordDTO)
+        {
+            return await _userRepository.ChangePasswordUser(changePasswordDTO);
+        }
+
         public async Task<string?> Login(UserLoginDTO loginDTO)
         {
             User user = await _userRepository.LoginUser(loginDTO);
@@ -28,7 +38,8 @@ namespace BananaChefBLL.Services
             return null;
         }
 
-        public async Task<bool> Register(UserRegisterDTO registerDTO)
+        // Méthode pour changer le mots de passe de l'utilisateur
+        public async Task<object> Register(UserRegisterDTO registerDTO)
         {
             return await _userRepository.RegisterUser(registerDTO);
         }

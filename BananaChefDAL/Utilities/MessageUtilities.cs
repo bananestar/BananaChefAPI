@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BananaChefDAL.Utilities
+﻿namespace BananaChefDAL.Utilities
 {
     public static class MessageUtilities
     {
@@ -12,6 +6,31 @@ namespace BananaChefDAL.Utilities
         {
             Console.WriteLine("*******--Erreur--*******");
             Console.WriteLine(msg);
+        }
+
+        public static void SuccesMessage(string msg)
+        {
+            Console.WriteLine("*******--Success--*******");
+            Console.WriteLine(msg);
+        }
+
+        public static void Message(bool? isValid, string msg)
+        {
+            if (isValid == true)
+            {
+                Console.WriteLine("*******--Success--*******");
+                Console.WriteLine(msg);
+            }
+            if (isValid == false)
+            {
+                Console.WriteLine("*******--Erreur Niveau n°1--*******");
+                Console.WriteLine(msg);
+            }
+            if (isValid == null)
+            {
+                Console.WriteLine("*******--Erreur Niveau n°2--*******");
+                Console.WriteLine(msg);
+            }
         }
     }
 }

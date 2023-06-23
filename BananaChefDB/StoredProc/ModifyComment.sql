@@ -40,3 +40,10 @@ BEGIN
     END
 
 END
+
+
+--@commentID : l'ID du commentaire à modifier
+--@userID : l'ID de l'utilisateur qui souhaite modifier le commentaire
+--@newCommentText : le nouveau texte du commentaire
+--@isAdmin : un indicateur booléen (0 ou 1) pour spécifier si l'utilisateur est un administrateur (facultatif, par défaut 0)
+--@message : une sortie pour renvoyer un message indiquant le résultat de l'opération

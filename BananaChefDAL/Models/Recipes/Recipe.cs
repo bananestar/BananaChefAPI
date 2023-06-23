@@ -1,5 +1,4 @@
-﻿using BananaChefDAL.Models.SavedRecipes;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BananaChefDAL.Models.Recipes
 {
@@ -40,7 +39,7 @@ namespace BananaChefDAL.Models.Recipes
 
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
-        public ICollection<SavedRecipe> SavedRecipes { get; set; }
+        //public ICollection<SavedRecipe> SavedRecipes { get; set; }
     }
 
     public enum DifficultyEnum
