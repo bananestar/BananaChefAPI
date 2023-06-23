@@ -44,16 +44,6 @@ namespace BananaChefBLL.Services
             var jwtUser = handler.CreateToken(newToken);
             string tokenAvance = handler.WriteToken(jwtUser);
 
-            JwtSecurityToken token = new JwtSecurityToken(
-                                                            claims: claims,
-                                                            issuer: _configuration["jwt:issuer"],
-                                                            audience: _configuration["jwt:audience"],
-                                                            expires: DateTime.Now.AddDays(1),
-                                                            signingCredentials: credentials
-                                                         );
-
-            string jwNature = new JwtSecurityTokenHandler().WriteToken(token);
-
             return tokenAvance;
         }
 

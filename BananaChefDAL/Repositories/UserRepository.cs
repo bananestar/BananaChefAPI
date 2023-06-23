@@ -28,7 +28,7 @@ namespace BananaChefDAL.Repositories
         // Méthode pour changer le mots de passe de l'utilisateur
         public async Task<object> ChangePasswordUser(ChangePasswordDTO changePasswordDTO)
         {
-            var rep = new Response();
+            Response rep = new Response();
             rep.rep = false;
 
             try
@@ -60,7 +60,7 @@ namespace BananaChefDAL.Repositories
         // Méthode pour changer l'email de l'utilisateur
         public async Task<object> ChangeEmailUser(ChangeEmailDTO changeEmailDTO)
         {
-            var rep = new Response();
+            Response rep = new Response();
             rep.rep = false;
             try
             {
@@ -119,7 +119,7 @@ namespace BananaChefDAL.Repositories
         // Méthode pour connecter un utilisateur
         public async Task<User> LoginUser(UserLoginDTO loginDTO)
         {
-            var rep = new Response();
+            Response rep = new Response();
             rep.rep = null;
             User user = new User();
             try
@@ -159,14 +159,14 @@ namespace BananaChefDAL.Repositories
         // Méthode pour enregistrer un utilisateur
         public async Task<object> RegisterUser(UserRegisterDTO registerDTO)
         {
-            var rep = new Response();
+            Response rep = new Response();
             rep.rep = false;
             try
             {
                 var sql = "exec RegisterUser @username, @email, @pwd";
                 var value = new { username = registerDTO.Username, email = registerDTO.Email, pwd = registerDTO.Password };
 
-                connection.Execute(sql, value);
+                await connection.ExecuteAsync(sql, value);
 
                 rep.message = "User registered successfully.";
                 rep.rep = true;
@@ -175,6 +175,39 @@ namespace BananaChefDAL.Repositories
             {
                 rep.message = e.ToString();
             }
+            MessageUtilities.Message(rep.rep, rep.message);
+            return rep;
+        }
+
+        // Méthode pour changer le status de l'utilisateur
+        public async Task<object> ChangeStatusUser(ChangeAdminStatusDTO changeAdminStatusDTO)
+        {
+            Response rep = new Response();
+            rep.rep = false;
+
+            try
+            {
+                var sql = "exec ChangeStatusAdminUser @userID, @isAdmin, @adminUserID, @message OUTPUT";
+                var parameters = new DynamicParameters();
+                parameters.Add("@userID", changeAdminStatusDTO.UserID);
+                parameters.Add("@isAdmin", changeAdminStatusDTO.IsAdmin);
+                parameters.Add("@adminUserID", changeAdminStatusDTO.AdminUserID);
+                parameters.Add("@message", dbType: DbType.String, size: 100, direction: ParameterDirection.Output);
+
+                await connection.ExecuteAsync(sql, parameters);
+
+                var message = parameters.Get<string>("@message");
+                rep.message = message;
+
+                if (rep.message == "User admin status updated successfully")
+                    rep.rep = true;
+            }
+            catch (Exception e)
+            {
+                rep.message = e.ToString();
+            }
+
+
             MessageUtilities.Message(rep.rep, rep.message);
             return rep;
         }

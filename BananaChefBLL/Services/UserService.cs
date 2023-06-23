@@ -28,6 +28,7 @@ namespace BananaChefBLL.Services
             return await _userRepository.ChangePasswordUser(changePasswordDTO);
         }
 
+        // Méthode pour connecter un utilisateur
         public async Task<string?> Login(UserLoginDTO loginDTO)
         {
             User user = await _userRepository.LoginUser(loginDTO);
@@ -42,6 +43,12 @@ namespace BananaChefBLL.Services
         public async Task<object> Register(UserRegisterDTO registerDTO)
         {
             return await _userRepository.RegisterUser(registerDTO);
+        }
+
+        // Méthode pour changer le status de l'utilisateur
+        public async Task<object> ChangeStatus(ChangeAdminStatusDTO changeAdminStatusDTO)
+        {
+            return await _userRepository.ChangeStatusUser(changeAdminStatusDTO);
         }
     }
 }

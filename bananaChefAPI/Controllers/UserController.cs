@@ -79,6 +79,21 @@ namespace BananaChefAPI.Controllers
             return Ok(result.message);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> ChangeStatusAdminUser(ChangeAdminStatusDTO adminStatusDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            Response result = (Response)await _userService.ChangeStatus(adminStatusDTO);
+
+            if (result.rep == false || result.rep == null)
+                return BadRequest(result.message);
+
+            return Ok(result.message);
+        }
+
 
 
     }

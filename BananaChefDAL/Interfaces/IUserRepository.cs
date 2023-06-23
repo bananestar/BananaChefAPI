@@ -16,5 +16,8 @@ namespace BananaChefDAL.Interfaces
 
         // Méthode pour changer le mots de passe de l'utilisateur
         public Task<object> ChangePasswordUser(ChangePasswordDTO changePasswordDTO);
+
+        // Méthode pour changer le status de l'utilisateur
+        public Task<object> ChangeStatusUser(ChangeAdminStatusDTO changeAdminStatusDTO);
     }
 }
