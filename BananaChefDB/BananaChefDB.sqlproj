@@ -58,6 +58,7 @@
     <Folder Include="Properties" />
     <Folder Include="Tables" />
     <Folder Include="StoredProc" />
+    <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Users.sql" />
@@ -90,5 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BananaChefDB.publish.xml" />
+    <None Include="Scripts\SeederUser.sql" />
   </ItemGroup>
 </Project>

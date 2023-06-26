@@ -52,7 +52,6 @@ namespace BananaChefAPI.Controllers
 
         // Action pour changer l'e-mail d'un utilisateur (requiert une autorisation)
         [HttpPost("ChangeEmailUser")]
-        [HttpPost("ChangeEmailUser")]
         [Authorize]
         public async Task<IActionResult> ChangeEmailUser(ChangeEmailDTO changeEmailDTO)
         {

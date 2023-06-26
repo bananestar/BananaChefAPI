@@ -2,17 +2,6 @@
 {
     public static class MessageUtilities
     {
-        public static void ErrorMessage(string msg)
-        {
-            Console.WriteLine("*******--Erreur--*******");
-            Console.WriteLine(msg);
-        }
-
-        public static void SuccesMessage(string msg)
-        {
-            Console.WriteLine("*******--Success--*******");
-            Console.WriteLine(msg);
-        }
 
         public static void Message(bool? isValid, string msg)
         {
