@@ -3,10 +3,10 @@
 	@Description varchar(max),
 	@OrderNumber int,
 	@Message varchar(100) OUTPUT,
-	@IfExist BIT = 0 OUTPUT
+	@IfExist BIT = 0 OUTPUT,
+	@StepID UNIQUEIDENTIFIER OUTPUT
 AS
 BEGIN
-	DECLARE @StepID UNIQUEIDENTIFIER
 	SET @StepID = NEWID()
 
 	-- Vérifier si @RecipeID est NULL ou une valeur vide

@@ -118,11 +118,12 @@ BEGIN
         BEGIN
             DECLARE @DescriptionSetps varchar(MAX)
             DECLARE @OrderNumber int
+            DECLARE @StepID UNIQUEIDENTIFIER
 
             SELECT TOP 1 Description=@DescriptionSetps, OrderNumber=@OrderNumber from #Setps
 
             -- Appeler la procédure AddSteps pour chaque étape
-            EXEC dbo.AddSteps @RecipeID,@DescriptionSetps,@OrderNumber,@Message OUTPUT,@IfExist OUTPUT
+            EXEC dbo.AddSteps @RecipeID,@DescriptionSetps,@OrderNumber,@Message OUTPUT,@IfExist OUTPUT, @StepID OUTPUT
 
             PRINT @Message
 

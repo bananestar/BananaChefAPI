@@ -85,6 +85,23 @@
     <Build Include="StoredProc\ChangeEmailUser.sql" />
     <Build Include="StoredProc\ModifyComment.sql" />
     <Build Include="StoredProc\CheckPasswordUser.sql" />
+    <Build Include="StoredProc\AddRecipe.sql" />
+    <Build Include="StoredProc\AddCategories.sql" />
+    <Build Include="StoredProc\AddRecipeCategories.sql" />
+    <Build Include="StoredProc\AddIngredients.sql" />
+    <Build Include="StoredProc\AddRecipeIngredients.sql" />
+    <Build Include="StoredProc\AddSteps.sql" />
+    <Build Include="StoredProc\UpdateRecipe.sql" />
+    <Build Include="StoredProc\UpdateCategories.sql" />
+    <Build Include="StoredProc\UpdateRecipeCategoryList.sql" />
+    <Build Include="StoredProc\UpdateRecipeIngredientList.sql" />
+    <Build Include="StoredProc\UpdateIngredient.sql" />
+    <Build Include="StoredProc\UpdateSetpsList.sql" />
+    <Build Include="StoredProc\UpdateSetps.sql" />
+    <Build Include="StoredProc\DeleteRecipe.sql" />
+    <Build Include="StoredProc\DeleteCategory.sql" />
+    <Build Include="StoredProc\DeleteIngredient.sql" />
+    <Build Include="StoredProc\DeleteSteps.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BananaChefDB.refactorlog" />

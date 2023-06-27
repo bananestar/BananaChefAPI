@@ -1,8 +1,17 @@
 ﻿CREATE PROCEDURE [dbo].[UpdateCategories]
-	@Name varchar(100),
-	@Message varchar(100) OUTPUT,
-	@IfExist BIT = 0 OUTPUT,
-	@CategoryID UNIQUEIDENTIFIER OUTPUT
+	@CategoryID UNIQUEIDENTIFIER,
+	@Name varchar(100)
 AS
-	SELECT @param1, @param2
-RETURN 0
+BEGIN
+	IF @CategoryID IS NULL OR @CategoryID = ''
+		BEGIN
+			RAISERROR('Invalid @CategoryID. Please provide a valid value.', 16, 1);
+			RETURN;
+		END
+
+	UPDATE dbo.Categories
+		SET Name = @Name
+	WHERE CategoryID=@CategoryID
+
+	PRINT 'Update Category'
+END

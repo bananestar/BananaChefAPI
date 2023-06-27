@@ -17,8 +17,6 @@
 AS
 BEGIN
     DECLARE @CategoryName varchar(100)
-    DECLARE @Message varchar(100)
-    DECLARE @IfExist BIT
 
     -- Vérification de la valeur de @RecipeID
 	IF NOT EXISTS (SELECT 1 FROM Recipe WHERE RecipeID = @RecipeID)
@@ -53,48 +51,44 @@ BEGIN
 
     -- Vérification de la valeur de @RecipeID
     IF EXISTS (SELECT 1 FROM Recipe WHERE RecipeID = @RecipeID)
-    BEGIN
-    -- La valeur de @RecipeID existe dans la table Recipe
-    -- Effectuer la mise à jour de l'enregistrement
-    UPDATE Recipe
-        SET Title = @Title,
-            Description = @Description,
-            PreparationTime = @PreparationTime,
-            CookingTime = @CookingTime,
-            Difficulty = @Difficulty,
-            Author = @Author,
-            ImageUrl = @ImageUrl,
-            VideoUrl = @VideoUrl,
-            Score = @Score,
-            UpdatedAt = GETDATE()
-        WHERE RecipeID = @RecipeID;
+        BEGIN
+        -- La valeur de @RecipeID existe dans la table Recipe
+        -- Effectuer la mise à jour de l'enregistrement
+            UPDATE Recipe
+                SET Title = @Title,
+                    Description = @Description,
+                    PreparationTime = @PreparationTime,
+                    CookingTime = @CookingTime,
+                    Difficulty = @Difficulty,
+                    Author = @Author,
+                    ImageUrl = @ImageUrl,
+                    VideoUrl = @VideoUrl,
+                    Score = @Score,
+                    UpdatedAt = GETDATE()
+                WHERE RecipeID = @RecipeID;
 
     
-        SET @Message = 'Recipe updated';
-        SET @IfExist = 1;
-    END
+            SET @Message = 'Recipe updated';
+            SET @IfExist = 1;
+        END
     ELSE
         BEGIN
             SET @Message = 'Recipe not found';
-            SET @IfExist = 0;  
+            RAISERROR(@Message, 16, 1);
+		    SET @IfExist = 0; 
+            RETURN;
         END
 
-    -- Créer une table temporaire pour les catégories
-    CREATE TABLE #Categories
-    (
-    CategoryName varchar(100)
-    )
+    -- UpdateRecipeCategory
+    EXEC UpdateRecipeCategoryList @RecipeID, @CategoryList
+    
+    --UpdateRecipeIngredient
+    EXEC UpdateRecipeIngredientList @RecipeID, @IngredientsJson
 
-    -- Insérer les catégories dans la table temporaire
-    INSERT INTO #Categories (CategoryName)
-    SELECT value
-    FROM STRING_SPLIT(@CategoryList, ',')
-
-    -- Traiter les catégories une par une
-    WHILE EXISTS(SELECT TOP 1 CategoryName FROM #Categories)
-        BEGIN
-            SELECT TOP 1 CategoryName = @CategoryName FROM #Categories
+    --UpdateRecipeSetps
+    EXEC UpdateSetpsList @RecipeID,@SetpsJson
 
 
-        END
+    PRINT 'ALL UPDATE RECIPE '
+
 END
