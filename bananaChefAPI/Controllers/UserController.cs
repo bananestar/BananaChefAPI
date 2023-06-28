@@ -1,6 +1,7 @@
 ﻿using BananaChefBLL.Interfaces;
 using BananaChefDAL.Models.Users.DTO;
 using BananaChefDAL.Models.Users.ViewModels;
+using BananaChefDAL.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,12 +18,6 @@ namespace BananaChefAPI.Controllers
             _userService = userService;
         }
 
-        // Classe Response pour stocker les résultats et les messages
-        public class Response
-        {
-            public string message { get; set; }
-            public bool? rep { get; set; }
-        }
 
         // Action pour la connexion d'un utilisateur
         [HttpPost("login")]
@@ -84,7 +79,7 @@ namespace BananaChefAPI.Controllers
         }
 
         // Action pour changer le statut administrateur d'un utilisateur (requiert une autorisation en tant qu'Admin)
-        [HttpGet]
+        [HttpGet("change-status/{UserID:Guid}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ChangeStatusAdminUser(ChangeAdminStatusDTO adminStatusDTO)
         {
@@ -100,10 +95,11 @@ namespace BananaChefAPI.Controllers
         }
 
         // Action pour obtenir les informations d'un utilisateur par son identifiant (requiert une autorisation)
-        [HttpGet]
+        [HttpGet("getByID/{UserID:Guid}")]
         [Authorize]
         public async Task<IActionResult> GetUserByID(Guid UserID)
         {
+            await Console.Out.WriteLineAsync(UserID.ToString());
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 

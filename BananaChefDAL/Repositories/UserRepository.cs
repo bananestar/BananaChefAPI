@@ -20,13 +20,6 @@ namespace BananaChefDAL.Repositories
             this.connection = connection;
         }
 
-        // Classe Response pour stocker les résultats et les messages
-        public class Response
-        {
-            public string message { get; set; }
-            public bool? rep { get; set; }
-        }
-
         // Méthode pour changer le mots de passe de l'utilisateur
         public async Task<object> ChangePasswordUser(ChangePasswordDTO changePasswordDTO)
         {
@@ -122,7 +115,7 @@ namespace BananaChefDAL.Repositories
         public async Task<User> LoginUser(UserLoginDTO loginDTO)
         {
             Response rep = new Response();
-            rep.rep = null;
+            rep.rep = false;
             User user = new User();
             try
             {
@@ -151,7 +144,6 @@ namespace BananaChefDAL.Repositories
             catch (Exception e)
             {
                 rep.message = e.ToString();
-                MessageUtilities.ErrorMessage(rep.message);
             }
 
             MessageUtilities.Message(rep.rep, rep.message);
@@ -229,7 +221,7 @@ namespace BananaChefDAL.Repositories
 
                 await connection.ExecuteAsync(sql, parameters);
 
-                var jsonResponse = parameters.Get<string>("@UserResult");
+                var jsonResponse = parameters.Get<string>("@User");
                 JArray jsonArray = JArray.Parse(jsonResponse);
                 JObject jsonObject = (JObject)jsonArray[0];
                 user = jsonObject.ToObject<User>();
