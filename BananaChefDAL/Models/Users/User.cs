@@ -1,4 +1,4 @@
-﻿using BananaChefDAL.Models.SavedRecipes;
+﻿//using BananaChefDAL.Models.SavedRecipes;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -52,6 +52,6 @@ namespace BananaChefDAL.Models.Users
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public ICollection<SavedRecipe> SavedRecipes { get; set; }
+        //public ICollection<SavedRecipe> SavedRecipes { get; set; }
     }
 }

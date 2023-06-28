@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[RegisterUser]
+﻿CREATE PROCEDURE RegisterUser
 	@username NVARCHAR(30),
 	@email NVARCHAR(255),
 	@pwd NVARCHAR(100)

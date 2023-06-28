@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[UpdateRecipeIngredientList]
+﻿CREATE PROCEDURE UpdateRecipeIngredientList
 	@RecipeID UNIQUEIDENTIFIER,
 	@IngredientsJson NVARCHAR(MAX)
 AS

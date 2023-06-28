@@ -2,6 +2,7 @@
 using BananaChefDAL.Interfaces;
 using BananaChefDAL.Models.Users;
 using BananaChefDAL.Models.Users.DTO;
+using BananaChefDAL.Models.Users.ViewModels;
 
 namespace BananaChefBLL.Services
 {
@@ -49,6 +50,11 @@ namespace BananaChefBLL.Services
         public async Task<object> ChangeStatus(ChangeAdminStatusDTO changeAdminStatusDTO)
         {
             return await _userRepository.ChangeStatusUser(changeAdminStatusDTO);
+        }
+
+        public async Task<UserViewModel> GetByID(Guid UserID)
+        {
+            return await _userRepository.GetByID(UserID);
         }
     }
 }

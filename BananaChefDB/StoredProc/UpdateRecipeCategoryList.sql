@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[UpdateRecipeCategoryList]
+﻿CREATE PROCEDURE UpdateRecipeCategoryList
 	@RecipeID UNIQUEIDENTIFIER,
 	@CategoryList varchar(MAX)
 AS
@@ -20,9 +20,19 @@ BEGIN
     CategoryID UNIQUEIDENTIFIER
 	)
 	 
-    INSERT INTO #CategoriesNew (CategoryName)
-    SELECT value
-    FROM STRING_SPLIT(@CategoryList, ',')
+    --- Vérifier si @CategoryList contient plusieurs catégories ou une seule catégorie
+    IF CHARINDEX(',', @CategoryList) = 0
+    BEGIN
+        -- Si @CategoryList ne contient qu'une seule catégorie, l'insérer directement dans la table temporaire
+        INSERT INTO #Categories (CategoryName) VALUES (@CategoryList)
+    END
+    ELSE
+    BEGIN
+        -- Si @CategoryList contient plusieurs catégories, utiliser STRING_SPLIT pour les diviser
+        INSERT INTO #CategoriesNew (CategoryName)
+        SELECT value
+        FROM STRING_SPLIT(@CategoryList, ',')
+    END
 
 	INSERT INTO #CategoriesOld (CategoryID)
 	SELECT CategoryID

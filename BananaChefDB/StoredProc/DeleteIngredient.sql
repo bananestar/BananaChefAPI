@@ -2,7 +2,7 @@
 	@IngredientID UNIQUEIDENTIFIER
 AS
 BEGIN
-	IF @IngredientID IS NULL OR @IngredientID = ''
+	IF @IngredientID IS NULL
 		BEGIN
 			RAISERROR('Invalid @IngredientID. Please provide a valid value.', 16, 1);
 			RETURN;

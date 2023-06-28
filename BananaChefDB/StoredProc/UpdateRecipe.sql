@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[UpdateRecipe]
+﻿CREATE PROCEDURE UpdateRecipe
     @RecipeID UNIQUEIDENTIFIER,
 	@Title varchar(100),
     @Description varchar(max),

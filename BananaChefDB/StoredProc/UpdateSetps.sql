@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[UpdateSetps]
+﻿CREATE PROCEDURE UpdateSetps
 	@StepID UNIQUEIDENTIFIER,
 	@RecipeID UNIQUEIDENTIFIER,
 	@Description varchar(max),

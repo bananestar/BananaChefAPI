@@ -1,5 +1,6 @@
 ﻿using BananaChefBLL.Interfaces;
 using BananaChefDAL.Models.Users.DTO;
+using BananaChefDAL.Models.Users.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -98,7 +99,17 @@ namespace BananaChefAPI.Controllers
             return Ok(result.message);
         }
 
+        // Action pour obtenir les informations d'un utilisateur par son identifiant (requiert une autorisation)
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetUserByID(Guid UserID)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            UserViewModel user = await _userService.GetByID(UserID);
 
+            return user is not null ? Ok(user) : BadRequest();
+        }
     }
 }

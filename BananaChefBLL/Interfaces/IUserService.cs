@@ -1,4 +1,5 @@
 ﻿using BananaChefDAL.Models.Users.DTO;
+using BananaChefDAL.Models.Users.ViewModels;
 
 namespace BananaChefBLL.Interfaces
 {
@@ -18,5 +19,8 @@ namespace BananaChefBLL.Interfaces
 
         // Méthode pour changer le status de l'utilisateur
         public Task<object> ChangeStatus(ChangeAdminStatusDTO changeAdminStatusDTO);
+
+        // Méthode pour recupérer un utilisateur via son userID
+        public Task<UserViewModel> GetByID(Guid UserID);
     }
 }

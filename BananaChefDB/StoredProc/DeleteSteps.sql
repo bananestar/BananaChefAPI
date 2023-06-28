@@ -2,7 +2,7 @@
 	@StepID UNIQUEIDENTIFIER
 AS
 BEGIN
-	IF @StepID IS NULL OR @StepID = ''
+	IF @StepID IS NULL
 		BEGIN
 			RAISERROR('Invalid @StepID. Please provide a valid value.', 16, 1);
 			RETURN;

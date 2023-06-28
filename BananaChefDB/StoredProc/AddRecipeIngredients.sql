@@ -9,7 +9,7 @@ BEGIN
 	SET @RecipeIngredientID = NEWID()
 
 	-- Vérifier si @Unit est NULL ou une valeur vide ou contient pas une unit valide
-	IF @Unit NOT IN ('g', 'kg', 'mg', 'L', 'mL', 'cL', 'c. à soupe', 'c. à café', 'Tasse', 'Verre', 'oz', 'lb', 'Pincée', 'Brin', 'Feuille', 'Tranche', 'Gousse', 'CLO', 'Filet', 'Morceau', 'Rondelle')
+	IF @Unit NOT IN ('g', 'kg', 'mg', 'L', 'mL', 'cL', 'c. à soupe', 'c. à café', 'Tasse', 'Verre', 'oz', 'lb', 'Pincée', 'Brin', 'Feuille', 'Tranche', 'Gousse', 'CLO', 'Filet', 'Morceau', 'Rondelle', 'Unitée', 'Sachet')
 	BEGIN
 		DECLARE @ErrorMessage NVARCHAR(200) = 'The value of @Unit is not valid.';
 		RAISERROR(@ErrorMessage, 16, 1);
@@ -17,14 +17,14 @@ BEGIN
 	END
 
 	-- Vérifier si @RecipeID est NULL ou une valeur vide
-	IF @RecipeID IS NULL OR @RecipeID = ''
+	IF @RecipeID IS NULL
 	BEGIN
 		RAISERROR('Invalid @RecipeID. Please provide a valid value.', 16, 1);
 		RETURN;
 	END
 
 	-- Vérifier si @IngredientID est NULL ou une valeur vide
-	IF @IngredientID IS NULL OR @IngredientID = ''
+	IF @IngredientID IS NULL
 	BEGIN
 		RAISERROR('Invalid @IngredientID. Please provide a valid value.', 16, 1);
 		RETURN;
@@ -38,7 +38,5 @@ BEGIN
 	END
 
 	INSERT INTO dbo.RecipeIngredient (RecipeIngredientID,RecipeID,IngredientID,Quantity,Unit,CreatedAt,UpdatedAt)
-	VALUES (@RecipeIngredientID,@RecipeID,@IngredientID,@Unit,@Quantity,GETDATE(), GETDATE())
-
-
+	VALUES (@RecipeIngredientID,@RecipeID,@IngredientID,@Quantity,@Unit,GETDATE(), GETDATE())
 END

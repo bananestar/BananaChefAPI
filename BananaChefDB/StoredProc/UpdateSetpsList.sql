@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[UpdateSetpsList]
+﻿CREATE PROCEDURE UpdateSetpsList
 	@RecipeID UNIQUEIDENTIFIER,
 	@SetpsJson NVARCHAR(MAX)
 AS

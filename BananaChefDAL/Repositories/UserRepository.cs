@@ -1,6 +1,8 @@
 ﻿using BananaChefDAL.Interfaces;
 using BananaChefDAL.Models.Users;
 using BananaChefDAL.Models.Users.DTO;
+using BananaChefDAL.Models.Users.Mapper;
+using BananaChefDAL.Models.Users.ViewModels;
 using BananaChefDAL.Utilities;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
@@ -210,6 +212,38 @@ namespace BananaChefDAL.Repositories
 
             MessageUtilities.Message(rep.rep, rep.message);
             return rep;
+        }
+
+        // Méthode pour recupérer un utilisateur via son userID
+        public async Task<UserViewModel> GetByID(Guid UserID)
+        {
+            Response rep = new Response();
+            rep.rep = false;
+            User user = new User();
+            try
+            {
+                var sql = "exec GetUserByID @UserID, @User OUTPUT";
+                var parameters = new DynamicParameters();
+                parameters.Add("@UserID", UserID);
+                parameters.Add("@User", dbType: DbType.String, size: -1, direction: ParameterDirection.Output);
+
+                await connection.ExecuteAsync(sql, parameters);
+
+                var jsonResponse = parameters.Get<string>("@UserResult");
+                JArray jsonArray = JArray.Parse(jsonResponse);
+                JObject jsonObject = (JObject)jsonArray[0];
+                user = jsonObject.ToObject<User>();
+
+                rep.message = "User recupérer";
+                rep.rep = true;
+            }
+            catch (Exception e)
+            {
+                rep.message = e.ToString();
+            }
+
+            MessageUtilities.Message(rep.rep, rep.message);
+            return user.ToUserViewModel();
         }
     }
 }

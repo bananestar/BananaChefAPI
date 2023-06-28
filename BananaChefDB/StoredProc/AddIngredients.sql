@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[AddIngredients]
+﻿CREATE PROCEDURE AddIngredients
 	@Name varchar(50),
 	@Description varchar(max),
 	@Message varchar(100) OUTPUT,
@@ -8,18 +8,18 @@ AS
 BEGIN
 	SET @IngredientID = NEWID()
 
-	IF NOT EXISTS(SELECT * from [dbo].[Ingredients] WHERE Name = @Name)
+	IF NOT EXISTS(SELECT * FROM Ingredients WHERE Name = @Name)
 	BEGIN
-		INSERT INTO [dbo].[Ingredients](IngredientID,Name,Description,CreatedAt,UpdatedAt)
-		VALUES (@IngredientID,@Name,@Description,GETDATE(), GETDATE())
+		INSERT INTO Ingredients(IngredientID, Name, Description, CreatedAt, UpdatedAt)
+		VALUES (@IngredientID, @Name, ISNULL(@Description, ''), GETDATE(), GETDATE())
 
-		SET @Message = @Name + ' not exist, Add to Ingredients'
+		SET @Message = @Name + ' does not exist, added to Ingredients'
 	END
 	ELSE
 	BEGIN
-		SELECT IngredientID = @IngredientID FROM [dbo].Ingredients WHERE Name = @Name
+		SELECT IngredientID = @IngredientID FROM Ingredients WHERE Name = @Name
 
-		SET @Message = @Name + ' exist'
+		SET @Message = @Name + ' already exists'
 
 		SET @IfExist = 1
 	END

@@ -18,9 +18,17 @@ BEGIN
     -- Récupérer la liste des étapes de la recette
     SELECT Description, OrderNumber
     FROM Steps
-    WHERE RecipeID = @RecipeID;
+    WHERE RecipeID = @RecipeID
+    ORDER BY OrderNumber ASC;
+
+    -- Récupérer la liste des catégories de la recette
+    SELECT c.Name
+    FROM RecipeCategories rc
+    INNER JOIN Categories c ON rc.CategoryID = c.CategoryID
+    WHERE rc.RecipeID = @RecipeID;
 
 END
+
 
 
 --Exemple de la requête

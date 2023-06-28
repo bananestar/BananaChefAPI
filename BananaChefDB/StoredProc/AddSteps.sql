@@ -10,14 +10,14 @@ BEGIN
 	SET @StepID = NEWID()
 
 	-- Vérifier si @RecipeID est NULL ou une valeur vide
-	IF @RecipeID IS NULL OR @RecipeID = ''
+	IF @RecipeID IS NULL
 	BEGIN
 		RAISERROR('Invalid @RecipeID. Please provide a valid value.', 16, 1);
 		RETURN;
 	END
 
 	-- Vérifier si @Description est NULL ou une valeur vide
-	IF @Description IS NULL OR @Description = ''
+	IF @Description IS NULL
 	BEGIN
 		RAISERROR('Invalid @Description. Please provide a valid value.', 16, 1);
 		RETURN;
@@ -31,16 +31,16 @@ BEGIN
 	END
 
 	-- Vérifier si @OrderNumber avec un WHERE de RecipedID si existe deja 
-	IF EXISTS(SELECT * FROM dbo.Steps WHERE RecipeID = @RecipeID AND OrderNumber = OrderNumber)
+	IF EXISTS(SELECT * FROM dbo.Steps WHERE RecipeID = @RecipeID AND OrderNumber = @OrderNumber)
 	BEGIN
 		SET @IfExist = 1;
 		RAISERROR('Invalid @OrderNumber. Please provide a valid value.', 16, 1);
 		RETURN;
 	END
 
+
 	INSERT INTO dbo.Steps (StepID,RecipeID,Description,OrderNumber,CreatedAt,UpdatedAt)
 	VALUES(@StepID,@RecipeID,@Description,@OrderNumber,GETDATE(), GETDATE())
 
-	SET @Message = 'Add Setp '+@OrderNumber;
-
+	SET @Message = 'Add Setp ' + CAST(@OrderNumber AS VARCHAR(10));
 END

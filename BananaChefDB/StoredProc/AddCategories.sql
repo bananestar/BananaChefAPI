@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[AddCategories]
+﻿CREATE PROCEDURE AddCategories
 	@Name varchar(100),
 	@Message varchar(100) OUTPUT,
 	@IfExist BIT = 0 OUTPUT,
@@ -9,10 +9,10 @@ BEGIN
 	SET @CategoryID = NEWID()
 
 	-- Vérifie si la catégorie n'existe pas
-	IF NOT EXISTS(SELECT * from [dbo].[Categories] WHERE Name = @Name)
+	IF NOT EXISTS(SELECT * from Categories WHERE Name = @Name)
 	BEGIN
 		-- Insère la catégorie dans la table Categories
-		INSERT INTO [dbo].[Categories] (CategoryID, Name)
+		INSERT INTO Categories (CategoryID, Name)
 		VALUES (@CategoryID, @Name)
 
 		-- Définit le message de sortie comme "Category not exist"
@@ -21,7 +21,7 @@ BEGIN
 	ELSE
 	BEGIN
 		-- Sélectionne l'ID de la catégorie existante
-		SELECT CategoryID = @CategoryID FROM [dbo].[Categories] WHERE Name = @Name
+		SELECT CategoryID = @CategoryID FROM Categories WHERE Name = @Name
 
 		-- Définit le message de sortie comme "Category exist"
 		SET @Message = @Name + ' exist'

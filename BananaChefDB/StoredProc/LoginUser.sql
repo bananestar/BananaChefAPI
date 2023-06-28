@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[LoginUser]
+﻿CREATE PROCEDURE LoginUser
 	@identifier NVARCHAR(255),
 	@password NVARCHAR(100),
 	@message NVARCHAR(100) OUTPUT,

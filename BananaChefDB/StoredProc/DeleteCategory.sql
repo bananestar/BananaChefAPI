@@ -2,7 +2,7 @@
 	@CategoryID UNIQUEIDENTIFIER
 AS
 BEGIN
-	IF @CategoryID IS NULL OR @CategoryID = ''
+	IF @CategoryID IS NULL
 		BEGIN
 			RAISERROR('Invalid @CategoryID. Please provide a valid value.', 16, 1);
 			RETURN;
