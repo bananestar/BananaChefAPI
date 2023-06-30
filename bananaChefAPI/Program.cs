@@ -37,6 +37,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 //JWT
 builder.Services.AddScoped<IJwtService, JwtService>();
 //DAL
+/** User **/
 builder.Services.AddScoped<IUserRepository, UserRepository>( sp =>
     new UserRepository(
         new System.Data.SqlClient.SqlConnection(
@@ -44,8 +45,18 @@ builder.Services.AddScoped<IUserRepository, UserRepository>( sp =>
             )
         )
 );
+/** Recipe **/
+builder.Services.AddScoped<IRecipeRepository, RecipeRepository>(sp =>
+    new RecipeRepository(
+        new System.Data.SqlClient.SqlConnection(
+            builder.Configuration.GetConnectionString("default")
+            )
+        ));
 //BLL
+/** User **/
 builder.Services.AddScoped<IUserService, UserService>();
+/** Recipe **/
+builder.Services.AddScoped<IRecipeService, RecipeService>();
 //DBSet
 builder.Services.AddDbContext<DataContext>();
 

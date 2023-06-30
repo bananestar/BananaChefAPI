@@ -25,10 +25,16 @@ namespace BananaChefDAL.Models.Recipes.RecipeViewModels
         [RegularExpression("^(Easy|Medium|Hard)$", ErrorMessage = "The Difficulty field must be 'Easy', 'Medium', or 'Hard'.")]
         public string Difficulty { get; set; }
 
+        public string Author { get; set; }
+        public string ImageUrl { get; set; }
+        public string VideoUrl { get; set; }
+
         [Range(0, 10, ErrorMessage = "The Score field must be between {1} and {2}.")]
         public decimal Score { get; set; }
 
         public DateTime CreatedAt { get; set; }
+        public DateTime UpdateAt { get; set; }
+
 
         public ICollection<IngredientViewModel> Ingredients { get; set; }
         public ICollection<CategoryViewModel> Categories { get; set; }
@@ -52,6 +58,31 @@ namespace BananaChefDAL.Models.Recipes.RecipeViewModels
     {
         public string Description { get; set; }
         public int OrderNumber { get; set; }
+    }
+
+    public class RecipeRaw
+    {
+        public Guid RecipeID { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int PreparationTime { get; set; }
+        public int CookingTime { get; set; }
+        public string Difficulty { get; set; }
+        public string Author { get; set; }
+        public string ImageUrl { get; set; }
+        public string VideoUrl { get; set; }
+        public decimal Score { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdateAt { get; set; }
+
+    }
+
+    public class RecipeAllView
+    {
+        public Guid RecipeID { get; set; }
+        public string Title { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdateAt { get; set; }
     }
 }
 

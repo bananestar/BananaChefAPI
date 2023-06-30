@@ -1,7 +1,11 @@
 ﻿using BananaChefDAL.Interfaces;
 using BananaChefDAL.Models.Recipes;
+using BananaChefDAL.Models.Recipes.DTO;
+using BananaChefDAL.Models.Recipes.Mapper;
 using BananaChefDAL.Models.Recipes.RecipeViewModels;
+using BananaChefDAL.Utilities;
 using Dapper;
+using NuGet.Protocol;
 using System.Data;
 
 namespace BananaChefDAL.Repositories
@@ -15,77 +19,120 @@ namespace BananaChefDAL.Repositories
             _connection = connection;
         }
 
+        public async Task<string> DeleteRecipe(Guid recipeID)
+        {
+            string message;
+            try
+            {
+                var sql = "Select RecipeID, Title, CreatedAt, UpdatedAt FROM Recipes WHERE RecipeID=@RecipeID";
+                var parameters = new DynamicParameters();
+                parameters.Add("@RecipeID", recipeID);
+
+                IEnumerable<RecipeAllView> r = await _connection.QueryAsync<RecipeAllView>(sql, parameters);
+
+                if(r is null)
+                    return message="RECORD NOT FOUND";
+
+                try
+                {
+                    sql = "exec DeleteRecipe @RecipeID";
+                    await _connection.QueryAsync(sql, parameters);
+                }
+                catch (Exception e)
+                {
+                    message = e.ToString();
+                }
+
+                message = "RECORD WAS DELETE";
+            }
+            catch (Exception e)
+            {
+                message = e.ToString();
+            }
+
+            return message;
+        }
+
+        public async Task<IEnumerable<RecipeAllView>> GetAllRecipe()
+        {
+            try
+            {
+                var sql = "Select RecipeID, Title, CreatedAt, UpdatedAt FROM Recipes ORDER BY YEAR(CreatedAt) DESC, MONTH(CreatedAt) DESC, DAY(CreatedAt) DESC ";
+                IEnumerable<RecipeAllView> result = await _connection.QueryAsync<RecipeAllView>(sql);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                MessageUtilities.Message(false, e.ToString());
+            }
+            return null;
+        }
+
         public async Task<RecipeViewModel> GetRecipeByID(Guid recipeID)
         {
             try
             {
-                var recipeQuery = "GetDetailsRecipe";
-                var parameters = new { RecipeID = recipeID };
+                var sql = "exec GetDetailsRecipe @RecipeID";
+                var parameters = new DynamicParameters();
+                parameters.Add("@RecipeID", recipeID);
 
-                using (var multi = await _connection.QueryMultipleAsync(recipeQuery, parameters, commandType: CommandType.StoredProcedure))
-                {
-                    var recipe = await multi.ReadSingleOrDefaultAsync<Recipe>();
+                var multiResult = await _connection.QueryMultipleAsync(sql, parameters);
 
-                    if (recipe != null)
-                    {
-                        var ingredients = await multi.ReadAsync<RecipeIngredient>();
-                        var categories = await multi.ReadAsync<Category>();
-                        var steps = await multi.ReadAsync<Step>();
+                //await MessageUtilities.PrintRecipe(multiResult);
 
-                        var recipeViewModel = new RecipeViewModel
-                        {
-                            RecipeID = recipe.RecipeID,
-                            Title = recipe.Title,
-                            Description = recipe.Description,
-                            PreparationTime = recipe.PreparationTime,
-                            CookingTime = recipe.CookingTime,
-                            Difficulty = recipe.Difficulty,
-                            Score = recipe.Score,
-                            CreatedAt = recipe.CreatedAt,
-                            Ingredients = MapToIngredientViewModels(ingredients).ToList(),
-                            Categories = MapToCategoryViewModels(categories).ToList(),
-                            Steps = MapToStepViewModels(steps).ToList()
-                        };
+                RecipeRaw recipeRaw = await multiResult.ReadFirstOrDefaultAsync<RecipeRaw>();
 
-                        return recipeViewModel;
-                    }
-                }
+                IEnumerable<IngredientViewModel> ingredientsRaw = await multiResult.ReadAsync<IngredientViewModel>();
+                IEnumerable<StepViewModel> stepsRaw = await multiResult.ReadAsync<StepViewModel>();
+                IEnumerable<CategoryViewModel> categoriesRaw = await multiResult.ReadAsync<CategoryViewModel>();
+                
+                return RecipeMapper.ToRecipeViewModel(recipeRaw, ingredientsRaw, stepsRaw, categoriesRaw);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                // Gérer les erreurs de manière appropriée
-                Console.WriteLine($"Une erreur s'est produite lors de la récupération de la recette : {ex.Message}");
+                Console.WriteLine($"Une erreur s'est produite lors de la récupération de la recette : {e.Message}");
             }
 
             return null;
         }
 
-        private List<IngredientViewModel> MapToIngredientViewModels(IEnumerable<RecipeIngredient> ingredients)
+        public async Task<RecipeViewModel> UpdateRecipe(UpdateRecipeDTO r)
         {
-            return ingredients.Select(i => new IngredientViewModel
+            try
             {
-                Name = i.Ingredient.Name,
-                Description = i.Ingredient.Description,
-                Quantity = i.Quantity,
-                Unit = i.Unit
-            }).ToList();
-        }
+                var sql = "exec UpdateRecipe @RecipeID, @Title, @Description, @PreparationTime, @CookingTime, @Difficulty, @Author, @ImageUrl, @VideoUrl, @Score, @CategoryList, @IngredientsJson, @SetpsJson, @Message OUTPUT, @IfExist OUTPUT";
 
-        private List<CategoryViewModel> MapToCategoryViewModels(IEnumerable<Category> categories)
-        {
-            return categories.Select(c => new CategoryViewModel
-            {
-                Name = c.Name
-            }).ToList();
-        }
+                var parameters = new DynamicParameters();
+                parameters.Add("@RecipeID", r.RecipeID);
+                parameters.Add("@Title", r.Title);
+                parameters.Add("@Description", r.Description);
+                parameters.Add("@PreparationTime", r.PreparationTime);
+                parameters.Add("@CookingTime", r.CookingTime);
+                parameters.Add("@Difficulty", r.Difficulty);
+                parameters.Add("@Author", r.Author);
+                parameters.Add("@ImageUrl", r.ImageUrl);
+                parameters.Add("@VideoUrl", r.VideoUrl);
+                parameters.Add("@Score", r.Score);
+                parameters.Add("@CategoryList", r.Categories);
+                parameters.Add("@IngredientsJson", r.Ingredients);
+                parameters.Add("@SetpsJson", r.Steps);
+                parameters.Add("@message", dbType: DbType.String, size: 100, direction: ParameterDirection.Output);
+                parameters.Add("@IfExist", dbType: DbType.Byte, size: 100, direction: ParameterDirection.Output);
 
-        private List<StepViewModel> MapToStepViewModels(IEnumerable<Step> steps)
-        {
-            return steps.Select(s => new StepViewModel
+                await _connection.QueryAsync(sql, parameters);
+
+                RecipeViewModel rc = await GetRecipeByID(r.RecipeID);
+                return rc;
+            }
+            catch (Exception e)
             {
-                Description = s.Description,
-                OrderNumber = s.OrderNumber
-            }).ToList();
+                MessageUtilities.Message(false, e.ToString());
+            }
+            return null;
         }
     }
 }
+
+
+

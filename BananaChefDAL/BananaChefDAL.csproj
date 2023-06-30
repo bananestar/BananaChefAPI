@@ -31,8 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Models\Recipes\DTO\" />
-    <Folder Include="Models\Recipes\Mapper\" />
   </ItemGroup>
 
 
