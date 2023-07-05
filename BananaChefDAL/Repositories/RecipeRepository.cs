@@ -57,7 +57,7 @@ namespace BananaChefDAL.Repositories
         {
             try
             {
-                var sql = "Select RecipeID, Title, CreatedAt, UpdatedAt FROM Recipes ORDER BY YEAR(CreatedAt) DESC, MONTH(CreatedAt) DESC, DAY(CreatedAt) DESC ";
+                var sql = "Select RecipeID, Title, ImageUrl, CreatedAt, UpdatedAt FROM Recipes ORDER BY YEAR(CreatedAt) DESC, MONTH(CreatedAt) DESC, DAY(CreatedAt) DESC ";
                 IEnumerable<RecipeAllView> result = await _connection.QueryAsync<RecipeAllView>(sql);
 
                 return result;

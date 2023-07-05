@@ -65,7 +65,11 @@ builder.Services.AddDbContext<DataContext>();
 //        new System.Data.SqlClient.SqlConnection(
 //            builder.Configuration.GetConnectionString("default"))));
 
-
+builder.Services.AddCors(o => o.AddPolicy("angular", option =>
+            option.WithOrigins("http://localhost:4200")
+                    .AllowCredentials()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()));
 
 var app = builder.Build();
 
@@ -75,6 +79,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("angular");
 
 app.UseHttpsRedirection();
 
