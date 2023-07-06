@@ -28,6 +28,7 @@ namespace BananaChefBLL.Services
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role,user.IsAdmin ? "Admin" : "User"),
+                new Claim("ProfileUrl", user.ProfileImageUrl),
                 new Claim(ClaimTypes.DateOfBirth, user.CreatedAt.ToString())
             };
 
