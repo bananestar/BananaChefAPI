@@ -5,7 +5,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Récupérer les informations de base de la recette
-    SELECT RecipeID, Title, Description, PreparationTime, CookingTime, Difficulty, Score, CreatedAt
+    SELECT RecipeID, Title, Description, PreparationTime, CookingTime, Difficulty, Author, ImageUrl, VideoUrl,  Score, CreatedAt
     FROM Recipes
     WHERE RecipeID = @RecipeID;
 
